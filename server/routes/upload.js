@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const path = require('path')
-const multerUpload = require('../utils/multerconnect')
+const { multerError, multerUpload } = require('../utils/multerconnect')
 const { onlyRole } = require('../utils/security')
 const jwtVerify = require('../utils/jwtVerify')
 const router = Router()
@@ -11,6 +11,7 @@ router.post(
   jwtVerify,
   onlyRole(['any']),
   multerUpload.single('file_url'),
+  multerError,
   async (req, res) => {
     try {
       const { where } = req.query
