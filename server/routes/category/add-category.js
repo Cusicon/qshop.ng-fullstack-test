@@ -31,7 +31,10 @@ router.post(
 
     // Create Category
     try {
-      const newCategory = { ...req.body, user_id: req.user.id }
+      let { title } = req.body
+      title = title.replace(' ', '-')
+
+      const newCategory = { ...req.body, user_id: req.user._id, title }
       await Category.create({ ...newCategory })
 
       return res.json({

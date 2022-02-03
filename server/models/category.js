@@ -5,7 +5,13 @@ const CategorySchema = new Schema(
   {
     title: {
       type: String,
+      unique: true,
       required: true,
+    },
+    user_id: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'users',
     },
   },
   { timestamps: { currentTime: () => Date() } }
