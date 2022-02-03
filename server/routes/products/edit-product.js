@@ -1,12 +1,13 @@
 const { Router } = require('express')
 const router = Router()
+const { body, validationResult } = require('express-validator')
 
 // --( MODELS )--
 const Product = require('../../models/product')
 const Category = require('../../models/category')
 
-// GET: single products
-router.get('/:slug', async (req, res) => {
+// PUT: all products
+router.put('/:slug', async (req, res) => {
   const { slug } = req.params
 
   try {
@@ -21,12 +22,9 @@ router.get('/:slug', async (req, res) => {
         data: null,
       })
 
-    let cat = await Category.findById(product.category).lean('title')
-    product.category = cat.title.replace('-', ' ')
-
     return res.json({
       ...global.jsonBag,
-      message: 'Viewing a product!',
+      message: 'Updated a product!',
       data: { ...product },
       error: null,
     })
