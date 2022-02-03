@@ -8,7 +8,7 @@ const onlyRole = (args) => (req, res, next) => {
   let separated_args = args.toString().split('::')
 
   args = separated_args
-  // If passed argument doesn't contain, "candidate", "employer" or "any", then do this
+  // If passed argument doesn't contain, "user", "admin" or "any", then do this
   if (!args.includes(req.user.role) && !args.includes('any'))
     return res.json({
       ...global.jsonBag,
@@ -28,9 +28,7 @@ const onlyRole = (args) => (req, res, next) => {
         ...global.jsonBag,
         status: (res.statusCode = 403), // Forbidden
         error: {
-          message: `Sorry, you don't have ${
-            req.user.role == 'employer' ? "an employer's" : "a candidate's"
-          } account. Go create one!`,
+          message: `Sorry, you don't have some-kinda account. Go create one!`,
           data: null,
         },
         data: null,

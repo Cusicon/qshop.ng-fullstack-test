@@ -32,7 +32,7 @@ app.use(jsonBag, (req, res, next) => {
     })
 
   req.stringifyBody = (body) => {
-    if (body != null)
+    if (typeof body != 'undefined' && typeof body != null)
       req.body = JSON.parse(JSON.stringify(req.body).toLowerCase())
   }
 
