@@ -7,11 +7,6 @@ const CategorySchema = new Schema(
       type: String,
       required: true,
     },
-    sub_categories: [
-      {
-        type: String,
-      },
-    ],
   },
   { timestamps: { currentTime: () => Date() } }
 )

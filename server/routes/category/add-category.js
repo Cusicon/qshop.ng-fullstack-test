@@ -12,7 +12,7 @@ router.post(
   async (req, res) => {
     req.stringifyBody(req.body)
 
-    const allowedBody = ['title', 'sub_categories']
+    const allowedBody = ['title']
     req.cleanBody(allowedBody)
 
     const errors = validationResult(req)
