@@ -4,6 +4,7 @@ const uuid = require('uuid')
 const fs = require('fs')
 
 const UPLOAD_REFERENCE = '../media/storage'
+const FILE_MAX_SIZE = 10485760 // 10 MB in bytes
 
 // --( MULTER CONFIGURATION )--
 const fileStorage = multer.diskStorage({
@@ -14,10 +15,6 @@ const fileStorage = multer.diskStorage({
     switch (where) {
       case 'video':
         dest = `${UPLOAD_REFERENCE}/videos`
-        break
-
-      case 'pdf':
-        dest = `${UPLOAD_REFERENCE}/pdfs`
         break
 
       case 'image':
@@ -47,11 +44,6 @@ const fileExtensionFilter = {
     file.mimetype === 'video/mp4' ||
     file.mimetype === 'video/mkv' ||
     file.mimetype === 'video/mov',
-  pdfs: (file) =>
-    file.mimetype === 'application/pdf' ||
-    file.mimetype === 'application/msword' ||
-    file.mimetype ===
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   images: (file) =>
     file.mimetype === 'image/jpeg' ||
     file.mimetype === 'image/jpg' ||
@@ -62,25 +54,40 @@ const fileExtensionFilter = {
 const fileFilter = (req, file, cb) => {
   const { where } = req.query
 
+  // if uploading an video
   if (where === 'video') {
-    // else if uploading an video
-    // check file type to be mp4
     if (fileExtensionFilter.videos(file)) cb(null, true)
     else cb(null, false) // else fails
-  } else if (where === 'pdf') {
-    // else if uploading an ebook
-    // check file type to be pdf, doc, or docx
-    if (fileExtensionFilter.pdfs(file)) cb(null, true)
-    else cb(null, false) // else fails
-  } else if (where === 'image') {
-    // else if uploading an video
-    // check file type to be mp4
+  }
+
+  // else if uploading an image
+  else if (where === 'image') {
     if (fileExtensionFilter.images(file)) cb(null, true)
     else cb(null, false) // else fails
-  } else cb(null, false)
+  }
+
+  // else fail completely
+  else cb(null, false)
 }
 
-module.exports = multer({
+const multerError = (err, _req, res, next) => {
+  if (err)
+    return res.json({
+      ...global.jsonBag,
+      status: (res.statusCode = 413),
+      error: {
+        message: err.message,
+        data: { ...err },
+      },
+      data: null,
+    })
+  next()
+}
+
+const multerUpload = multer({
   storage: fileStorage,
   fileFilter: fileFilter,
+  limits: { fileSize: FILE_MAX_SIZE },
 })
+
+module.exports = { multerError, multerUpload }
