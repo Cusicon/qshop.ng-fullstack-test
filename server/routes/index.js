@@ -1,9 +1,20 @@
-var express = require('express');
-var router = express.Router();
+const { Router } = require('express')
+const router = Router()
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+// --( REQUIRES )--
+const signInRouter = require('./auth/signin')
+const signUpRouter = require('./auth/signup')
+const uploadRouter = require('./upload')
+const productRouter = require('./product')
 
-module.exports = router;
+// --( AUTH ROUTERS )--
+router.use('/signup', signUpRouter)
+router.use('/signin', signInRouter)
+
+// --( PRODUCTS ROUTERS )--
+router.use('/product', productRouter)
+
+// --( MEDIAS ROUTERS )--
+router.use('/upload', uploadRouter)
+
+module.exports = router

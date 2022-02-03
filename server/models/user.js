@@ -3,6 +3,9 @@ const Schema = mongoose.Schema
 
 const UserSchema = new Schema(
   {
+    avatar: {
+      type: String,
+    },
     name: {
       type: String,
       required: true,
@@ -17,6 +20,7 @@ const UserSchema = new Schema(
     },
     role: {
       type: String,
+      enum: ['user', 'admin'],
       required: true,
     },
     is_active: {
