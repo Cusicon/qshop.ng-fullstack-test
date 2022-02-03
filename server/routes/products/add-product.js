@@ -72,6 +72,7 @@ router.post(
 
       return res.json({
         ...global.jsonBag,
+        status: (res.statusCode = 201),
         message: 'Added a product!',
         error: null,
         data: null,

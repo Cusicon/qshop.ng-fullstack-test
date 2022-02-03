@@ -36,6 +36,7 @@ router.post(
 
       return res.json({
         ...global.jsonBag,
+        status: (res.statusCode = 201),
         message: 'Added a category!',
         error: null,
         data: null,
