@@ -41,7 +41,7 @@ router.post(
         '_id',
         'email',
         'password',
-      ]).lean()
+      ]).lean().exec()
 
       if (!user)
         return res.json({

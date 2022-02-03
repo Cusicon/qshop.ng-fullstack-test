@@ -43,9 +43,9 @@ const authUserByPassword = async (req, res, next) => {
   const { auth_password } = req.body
 
   try {
-    const logged_in_user = await User.findById(req.user._id, [
-      'password',
-    ]).lean()
+    const logged_in_user = await User.findById(req.user._id, ['password'])
+      .lean()
+      .exec()
     if (await bcrypt.compare(auth_password, logged_in_user.password))
       return next()
 
