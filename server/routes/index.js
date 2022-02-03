@@ -5,14 +5,14 @@ const router = Router()
 const signInRouter = require('./auth/signin')
 const signUpRouter = require('./auth/signup')
 const uploadRouter = require('./upload')
-const productRouter = require('./product')
+const productsRouter = require('./products')
 
 // --( AUTH ROUTERS )--
 router.use('/signup', signUpRouter)
 router.use('/signin', signInRouter)
 
 // --( PRODUCTS ROUTERS )--
-router.use('/product', productRouter)
+router.use('/products', productsRouter)
 
 // --( MEDIAS ROUTERS )--
 router.use('/upload', uploadRouter)
