@@ -3,6 +3,8 @@ const path = require('path')
 const uuid = require('uuid')
 const fs = require('fs')
 
+const UPLOAD_REFERENCE = '../media/storage'
+
 // --( MULTER CONFIGURATION )--
 const fileStorage = multer.diskStorage({
   // multer configuration to enable us set the path and naming convention for our newly uploaded files
@@ -11,19 +13,19 @@ const fileStorage = multer.diskStorage({
 
     switch (where) {
       case 'video':
-        dest = '../media.employed-dot-ng.carryna.com/storage/videos'
+        dest = `${UPLOAD_REFERENCE}/videos`
         break
 
       case 'pdf':
-        dest = '../media.employed-dot-ng.carryna.com/storage/pdfs'
+        dest = `${UPLOAD_REFERENCE}/pdfs`
         break
 
       case 'image':
-        dest = '../media.employed-dot-ng.carryna.com/storage/images'
+        dest = `${UPLOAD_REFERENCE}/images`
         break
 
       default:
-        dest = '../media.employed-dot-ng.carryna.com/storage/trash'
+        dest = `${UPLOAD_REFERENCE}/trash`
         break
     }
 

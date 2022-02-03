@@ -55,7 +55,7 @@ router.post(
           ? `https://media.${req.hostname}/storage${
               req.file.path.split('storage')[1]
             }`
-          : `${path.join(__dirname, `../../${req.file.path}`)}`
+          : `${path.join(__dirname, `../${req.file.path}`)}`
 
       req.file.path = filePath
 
