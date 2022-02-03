@@ -6,7 +6,7 @@ const { body, validationResult } = require('express-validator')
 const Product = require('../../models/product')
 
 // GET: view product
-router.get('/:id', (req, res) => {
+router.get('/:slug', (req, res) => {
   return res.json({
     ...global.jsonBag,
     message: 'Viewing a product!',

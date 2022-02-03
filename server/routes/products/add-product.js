@@ -56,12 +56,14 @@ router.post(
 
     // Create Product
     try {
-      let _category = req.body.category
-      let found_cat = await Category.findOne({ title: _category }).lean('_id')
+      const { category, title } = req.body
+      let found_cat = await Category.findOne({ title: category }).lean('_id')
+      let slug = title.replace(' ', '-')
       if (!found_cat) throw Error('please, select a valid category!')
 
       const newProduct = {
         ...req.body,
+        slug: slug,
         user_id: req.user._id,
         category: found_cat._id,
       }
