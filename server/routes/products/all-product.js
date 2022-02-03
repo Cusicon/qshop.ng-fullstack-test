@@ -3,11 +3,21 @@ const router = Router()
 
 // --( MODELS )--
 const Product = require('../../models/product')
+const Category = require('../../models/category')
 
 // GET: all products
 router.get('/', async (req, res) => {
   try {
-    const products = await Product.find().lean().exec()
+    let products = await Product.find().lean().exec()
+    let u_products = []
+
+    for (const prod of products) {
+      let cat = await Category.findById(prod.category).lean('title')
+      prod.category = cat.title.replace('-', ' ')
+      u_products.push(prod)
+    }
+
+    products = [...u_products]
 
     return res.json({
       ...global.jsonBag,
