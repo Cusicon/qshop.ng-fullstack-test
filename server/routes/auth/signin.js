@@ -18,7 +18,7 @@ router.post(
   body('password', 'Please, enter a password!').notEmpty().isString(),
   async (req, res) => {
     let original_password = req.body.password
-    req.body = JSON.parse(JSON.stringify(req.body).toLowerCase())
+    req.stringifyBody(req.body)
     req.body.password = original_password
 
     const errors = validationResult(req)

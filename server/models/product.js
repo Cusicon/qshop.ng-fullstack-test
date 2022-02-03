@@ -35,7 +35,7 @@ const ProductSchema = new Schema(
     },
     is_deleted: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     category_id: {
       type: Schema.Types.ObjectId,

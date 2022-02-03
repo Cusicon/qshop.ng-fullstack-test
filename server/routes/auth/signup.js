@@ -15,17 +15,12 @@ router.post(
   body('name')
     .notEmpty()
     .isString()
-    .custom((value, { req }) => {
+    .custom((value) => {
       // If name is not 2 values
       // E.g Success Chukwu
-      const { role } = req.body
 
       if (value.split(' ').length < 2)
-        throw new Error(
-          role == 'candidate'
-            ? 'Please, enter your name!'
-            : "Please, enter your complete company's name!"
-        )
+        throw new Error('Please, enter your fullname!')
 
       return value
     }),
@@ -37,7 +32,7 @@ router.post(
   }),
   async (req, res) => {
     let original_password = req.body.password
-    req.body = JSON.parse(JSON.stringify(req.body).toLowerCase())
+    req.stringifyBody(req.body)
     req.body.password = original_password
 
     const errors = validationResult(req)
