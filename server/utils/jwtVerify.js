@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
       data: null,
     })
 
-  // If token is found, get user.id from JWT and
+  // If token is found, get user._id from JWT and
   // find user"s proper info from DB
   try {
     let user_payload = jwt.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET)
