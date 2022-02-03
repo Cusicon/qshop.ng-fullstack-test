@@ -7,7 +7,7 @@ const Category = require('../../models/category')
 // GET: all categories
 router.get('/', async (req, res) => {
   try {
-    const categories = await Category.find().lean().exec()
+    const categories = (await Category.find().lean().exec()).reverse()
 
     return res.json({
       ...global.jsonBag,

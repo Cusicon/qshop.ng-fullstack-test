@@ -8,7 +8,7 @@ const Category = require('../../models/category')
 // GET: all products
 router.get('/', async (req, res) => {
   try {
-    let products = await Product.find().lean().exec()
+    let products = (await Product.find().lean().exec()).reverse()
     let u_products = []
 
     if (!products)
