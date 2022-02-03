@@ -49,7 +49,8 @@ router.post(
         ...global.jsonBag,
         status: (res.statusCode = err.status || 500),
         error: {
-          message: err.message,
+          message:
+            err.code === 11000 ? 'Sorry, category already exist!' : err.message,
           data: { ...err },
         },
         data: null,
