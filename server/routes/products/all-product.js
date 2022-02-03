@@ -11,6 +11,15 @@ router.get('/', async (req, res) => {
     let products = await Product.find().lean().exec()
     let u_products = []
 
+    if (!products)
+      return res.json({
+        ...global.jsonBag,
+        status: (res.statusCode = 401),
+        message: 'Sorry, products not found!',
+        error: null,
+        data: null,
+      })
+
     for (const prod of products) {
       let cat = await Category.findById(prod.category).lean('title')
       prod.category = cat.title.replace('-', ' ')
