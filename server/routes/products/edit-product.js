@@ -42,6 +42,15 @@ router.put(
         .lean()
         .exec()
 
+      if (!product)
+        return res.json({
+          ...global.jsonBag,
+          status: (res.statusCode = 401),
+          message: 'Sorry, no product found!',
+          error: null,
+          data: null,
+        })
+
       const { description, price, qty } = req.body
       let modified_props = [...Object.keys(req.body)]
       let what_happened = `Modified ${price ? `price: ${price},` : ''} ${
@@ -53,15 +62,6 @@ router.put(
         what_happened,
         modified_props,
       })
-
-      if (!product)
-        return res.json({
-          ...global.jsonBag,
-          status: (res.statusCode = 401),
-          message: 'Sorry, no product found!',
-          error: null,
-          data: null,
-        })
 
       return res.json({
         ...global.jsonBag,
