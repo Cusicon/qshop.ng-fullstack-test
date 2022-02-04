@@ -4,6 +4,7 @@ const { body, validationResult } = require('express-validator')
 
 // --( MODELS )--
 const Product = require('../../models/product')
+const ProductHistory = require('../../models/product_history')
 
 // PUT: edit product
 router.put(
@@ -40,6 +41,18 @@ router.put(
       })
         .lean()
         .exec()
+
+      const { description, price, qty } = req.body
+      let modified_props = [...Object.keys(req.body)]
+      let what_happened = `Modified ${price ? `price: ${price},` : ''} ${
+        qty ? `qty: ${qty},` : ''
+      } ${description ? `and description: ${description}]` : ''}`
+
+      await ProductHistory.create({
+        product_id: prod_id,
+        what_happened,
+        modified_props,
+      })
 
       if (!product)
         return res.json({
