@@ -55,7 +55,15 @@ router.put(
       let modified_props = [...Object.keys(req.body)]
       let what_happened = `Modified ${price ? `price: ${price},` : ''} ${
         qty ? `qty: ${qty},` : ''
-      } ${description ? `and description: ${description}]` : ''}`
+      } ${
+        description
+          ? `and description: ${
+              description.length > 20
+                ? `${description.substring(0, 20).trim()}...`
+                : description
+            }`
+          : ''
+      }`
 
       await ProductHistory.create({
         product_id: prod_id,
