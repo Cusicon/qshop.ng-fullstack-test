@@ -54,22 +54,20 @@ router.put(
       const { description, price, qty } = req.body
       let modified_props = [...Object.keys(req.body)]
       let what_happened = `Modified ${price ? `price: ${price},` : ''} ${
-        qty ? `qty: ${qty},` : ''
-      } ${
-        description
-          ? `and description: ${
-              description.length > 20
-                ? `${description.substring(0, 20).trim()}...`
-                : description
-            }`
-          : ''
-      }`
+        qty ? `quantity: ${qty},` : ''
+      } ${description ? `and description: ${description}` : ''}`
 
-      await ProductHistory.create({
+      let newProductHistory = {
         product_id: prod_id,
         what_happened,
         modified_props,
-      })
+      }
+
+      newProductHistory = JSON.parse(
+        JSON.stringify(newProductHistory).toLowerCase()
+      )
+
+      await ProductHistory.create({ ...newProductHistory })
 
       return res.json({
         ...global.jsonBag,
