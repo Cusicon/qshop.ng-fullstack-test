@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
+import Home from '@/views/Home.vue'
+import AddProduct from '@/views/products/AddProduct.vue'
+import AllProducts from '@/views/products/AllProducts.vue'
+import EditProduct from '@/views/products/EditProduct.vue'
+import SingleProduct from '@/views/products/SingleProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -12,9 +15,25 @@ const routes = [
     component: Home,
   },
   {
-    path: '/about',
-    name: 'About',
-    component: About,
+    path: '/products/:slug',
+    name: 'SingleProduct',
+    component: SingleProduct,
+  },
+  // Admin dash
+  {
+    path: '/add-product',
+    name: 'AddProduct',
+    component: AddProduct,
+  },
+  {
+    path: '/products',
+    name: 'AllProducts',
+    component: AllProducts,
+  },
+  {
+    path: '/edit-product',
+    name: 'EditProduct',
+    component: EditProduct,
   },
 ]
 
