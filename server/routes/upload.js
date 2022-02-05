@@ -51,10 +51,7 @@ router.post(
           data: null,
         })
 
-      const filePath = `${process.env.APP_URL}/${req.file.path.replace(
-        'public/',
-        ''
-      )}`
+      const filePath = `/${req.file.path.replace('public/', '')}`
 
       req.file.path = filePath
 
