@@ -12,12 +12,10 @@ const Product_HistorySchema = new Schema(
       type: String,
       required: true,
     },
-    modified_props: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    modified_props: {
+      type: Map,
+      required: true,
+    },
   },
   { timestamps: { currentTime: () => Date() } }
 )

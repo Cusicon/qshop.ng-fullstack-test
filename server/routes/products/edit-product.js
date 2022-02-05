@@ -52,7 +52,7 @@ router.put(
         })
 
       const { description, price, qty } = req.body
-      let modified_props = [...Object.keys(req.body)]
+      let modified_props = { ...req.body }
       let what_happened = `Modified ${price ? `price: ${price},` : ''} ${
         qty ? `quantity: ${qty},` : ''
       } ${description ? `and description: ${description}` : ''}`
