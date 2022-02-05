@@ -51,15 +51,31 @@ router.put(
           data: null,
         })
 
+      // Check for changes
       const { description, price, qty } = req.body
-      let modified_props = { ...req.body }
-      let what_happened = `Modified ${price ? `price: ${price},` : ''} ${
-        qty ? `quantity: ${qty},` : ''
-      } ${description ? `and description: ${description}` : ''}`
+      const modified_props = { ...req.body }
+      const {
+        description: prev_description,
+        price: prev_price,
+        qty: prev_qty,
+      } = product
+
+      if (description == prev_description) delete modified_props.description
+      if (price == prev_price) delete modified_props.price
+      if (qty == prev_qty) delete modified_props.qty
+
+      const {
+        description: m_description,
+        price: m_price,
+        qty: m_qty,
+      } = modified_props
+      let what_happened = `Modified ${m_price ? `price: ${m_price} ` : ''}${
+        m_qty ? `quantity: ${m_qty} ` : ''
+      }${m_description ? `description: ${m_description}` : ''}`
 
       let newProductHistory = {
         product_id: prod_id,
-        what_happened,
+        what_happened: what_happened.trim(),
         modified_props,
       }
 
