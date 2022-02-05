@@ -8,7 +8,10 @@
               <br />
               <h1>Add Product</h1>
 
-              <form class="woocommerce-form woocommerce-form-login login">
+              <form
+                @submit.prevent="submit"
+                class="woocommerce-form woocommerce-form-login login"
+              >
                 <p class="form-row form-row-wide">
                   <label for="product_name"
                     >Product Title<span class="required">*</span></label
@@ -126,7 +129,6 @@
                 <p class="form-row">
                   <button
                     :disabled="isSubmitting"
-                    @click.prevent="submit"
                     type="submit"
                     class="
                       woocommerce-button
@@ -182,6 +184,7 @@ export default {
     },
     async submit() {
       try {
+        this.isSubmitting = true;
         const formData = new FormData();
         formData.append("file_url", this.changedImage);
         const img_response = await axios.post(
@@ -193,7 +196,9 @@ export default {
 
         await axios.post(`/products/add`, this.form);
         this.$router.push("/products");
+        this.isSubmitting = false;
       } catch (err) {
+        this.isSubmitting = false;
         console.log(err);
       }
     },

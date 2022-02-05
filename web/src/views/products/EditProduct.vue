@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-product">
+  <div class="edit-product" v-if="product">
     <section id="content">
       <div class="container">
         <div class="single_post_cont">
@@ -9,8 +9,8 @@
               <h1>Edit Product</h1>
 
               <form
+                @submit.prevent="submit"
                 class="woocommerce-form woocommerce-form-login login"
-                method="POST"
               >
                 <p class="form-row form-row-wide">
                   <label for="product_name"
@@ -22,7 +22,7 @@
                     name="product_name"
                     id="product_name"
                     autocomplete="product_name"
-                    value=""
+                    :value="product.title"
                     disabled
                     required
                   />
@@ -36,6 +36,7 @@
                     name="product_description"
                     id="product_description"
                     autocomplete="product_description"
+                    v-model="form.description"
                     required
                   ></textarea>
                 </p>
@@ -52,7 +53,7 @@
                     autocomplete="product_price"
                     required
                     min="0"
-                    value=""
+                    v-model="form.price"
                   />
                 </p>
 
@@ -67,7 +68,7 @@
                     disabled
                     required
                   >
-                    <option value="">Select a category</option>
+                    <option>{{ product.category }}</option>
                   </select>
                 </p>
 
@@ -83,7 +84,7 @@
                     autocomplete="product_quantity"
                     required
                     min="1"
-                    value=""
+                    v-model="form.qty"
                   />
                 </p>
 
@@ -94,7 +95,7 @@
                   <img
                     width="100"
                     height="100"
-                    src="https://dessign.net/shopper-woocommerce-theme/wp-content/uploads/2015/03/modern-chair-black1-300x300.jpg"
+                    :src="product.images[0]"
                     class="
                       attachment-woocommerce_thumbnail
                       size-woocommerce_thumbnail
@@ -128,97 +129,7 @@
 
         <div class="clear"></div>
 
-        <div class="single_post_cont">
-          <div class="single_inside_content">
-            <div class="woocommerce">
-              <div class="woocommerce-notices-wrapper"></div>
-              <br />
-              <h1>Modification History</h1>
-
-              <table
-                class="
-                  shop_table shop_table_responsive
-                  cart
-                  woocommerce-cart-form__contents
-                "
-                cellspacing="0"
-              >
-                <thead>
-                  <tr>
-                    <th class="product-thumbnail">Image</th>
-                    <th class="product-name">Product</th>
-                    <th class="product-date-updated">Date Updated</th>
-                    <th class="product-what-was-modified">What was modified</th>
-                    <th class="product-quantity">Balance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="woocommerce-cart-form__cart-item cart_item">
-                    <td class="product-thumbnail">
-                      <a href="/single-product"
-                        ><img
-                          width="50"
-                          height="50"
-                          src="https://dessign.net/shopper-woocommerce-theme/wp-content/uploads/2015/03/modern-chair-black1-300x300.jpg"
-                          class="
-                            attachment-woocommerce_thumbnail
-                            size-woocommerce_thumbnail
-                          "
-                          alt=""
-                          loading="lazy"
-                        />
-                      </a>
-                    </td>
-
-                    <td class="product-name" data-title="Product">
-                      <a href="/single-product"> Design and Relax </a>
-                    </td>
-
-                    <td class="product-date-updated" data-title="Date-Added">
-                      <span class="woocommerce-Price-amount amount">
-                        2022-02-03
-                      </span>
-                    </td>
-
-                    <td
-                      class="product-what-was-modified"
-                      data-title="What Was Modified"
-                    >
-                      <span class="woocommerce-Price-amount amount">
-                        modified price: 1450.99, quantity: 180, and description:
-                        this is an updated product two!
-                      </span>
-                    </td>
-
-                    <td class="product-quantity" data-title="Quantity">
-                      <div class="quantity">
-                        <label class="screen-reader-text" for="product-quantity"
-                          >Quantity</label
-                        >
-                        <input
-                          type="number"
-                          id="product-quantity"
-                          class="input-text qty text"
-                          step="1"
-                          min="1"
-                          max=""
-                          name="product-quantity"
-                          value="1"
-                          title="Quantity"
-                          size="4"
-                          inputmode="numeric"
-                          disabled
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <br /><br />
-        </div>
+        <ProductModification :productId="product._id"/>
       </div>
     </section>
     <div class="clear"></div>
@@ -228,17 +139,51 @@
 <script>
 // @ is an alias to /src
 // import components
+import { AXIOS as axios } from "@/utils/http-common";
+import ProductModification from "@/components/ProductModification.vue";
 
 export default {
-  name: "EditProduct",
+  name: "AddProduct",
   components: {
-    // components...
+    ProductModification
   },
   data() {
-    return {};
+    return {
+      isSubmitting: false,
+      product: null,
+      form: {
+        description: "",
+        price: "",
+        qty: "",
+      },
+      errors: [],
+    };
   },
-  mounted() {
-    console.log(this.$route.params.productId);
+  methods: {
+    async submit() {
+      try {
+        await axios.put(`/products/edit/${this.product._id}`, this.form);
+        this.$router.push("/products");
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    init() {
+      this.form.description = this.product.description;
+      this.form.price = this.product.price;
+      this.form.qty = this.product.qty;
+    },
+  },
+
+  // Fetches posts when the component is created.
+  async mounted() {
+    try {
+      const response = await axios.get(`/products/${this.$route.params.slug}`);
+      this.product = response.data.data;
+      this.init();
+    } catch (e) {
+      this.errors.push(e);
+    }
   },
 };
 </script>

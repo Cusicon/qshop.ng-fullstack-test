@@ -52,15 +52,16 @@
                       >
                         <small class="fa fa-eye"></small> view
                       </router-link>
-                      <a
-                        href="/edit-product"
+                      <router-link
+                        :to="`/products/${product.slug}/edit`"
                         class="badge product-action-edit"
-                        aria-label="Edit this item"
+                        aria-label="Edit this
+                        item"
                         data-product_id="85"
                         data-product_sku="Relax599"
                       >
                         <small class="fa fa-edit"></small> edit
-                      </a>
+                      </router-link>
                       <a
                         href="/delete-product"
                         class="badge product-action-delete"
