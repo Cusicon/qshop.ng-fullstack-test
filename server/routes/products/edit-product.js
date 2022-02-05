@@ -105,4 +105,41 @@ router.put(
   }
 )
 
+// GET: product modification history
+router.get('/:id/history', async (req, res) => {
+  const { id: product_id } = req.params
+
+  try {
+    let product_histories = (
+      await ProductHistory.find({ product_id }).lean().exec()
+    ).reverse()
+
+    if (!product_histories)
+      return res.json({
+        ...global.jsonBag,
+        status: (res.statusCode = 401),
+        message: "Sorry, product's history  not found!",
+        error: null,
+        data: null,
+      })
+
+    return res.json({
+      ...global.jsonBag,
+      message: "Viewing all product's history!",
+      data: { ...product_histories },
+      error: null,
+    })
+  } catch (err) {
+    return res.json({
+      ...global.jsonBag,
+      status: (res.statusCode = err.status || 500),
+      error: {
+        message: err.message,
+        data: { ...err },
+      },
+      data: null,
+    })
+  }
+})
+
 module.exports = router
