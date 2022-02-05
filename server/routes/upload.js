@@ -51,12 +51,10 @@ router.post(
           data: null,
         })
 
-      const filePath =
-        process.env.NODE_ENV !== 'development'
-          ? `https://media.${req.hostname}/storage${
-              req.file.path.split('storage')[1]
-            }`
-          : `${path.join(__dirname, `../${req.file.path}`)}`
+      const filePath = `${process.env.APP_URL}/${req.file.path.replace(
+        'public/',
+        ''
+      )}`
 
       req.file.path = filePath
 

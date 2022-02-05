@@ -3,7 +3,7 @@ const path = require('path')
 const uuid = require('uuid')
 const fs = require('fs')
 
-const UPLOAD_REFERENCE = '../media/storage'
+const UPLOAD_REFERENCE = 'public/media/storage'
 const FILE_MAX_SIZE = 10485760 // 10 MB in bytes
 
 // --( MULTER CONFIGURATION )--
