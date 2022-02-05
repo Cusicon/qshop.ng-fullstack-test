@@ -118,7 +118,7 @@ router.get('/:id/history', async (req, res) => {
       return res.json({
         ...global.jsonBag,
         status: (res.statusCode = 401),
-        message: "Sorry, product's history  not found!",
+        message: "Sorry, product's history not found!",
         error: null,
         data: null,
       })
