@@ -89,6 +89,7 @@ export default {
 
       new_all_products = new_all_products.sort(sortByCategory);
       this.products = new_all_products;
+      this.setAppTitle();
     } catch (err) {
       this.errors.push(err);
     }

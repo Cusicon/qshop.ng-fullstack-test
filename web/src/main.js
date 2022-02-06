@@ -10,6 +10,11 @@ Vue.mixin({
   data: function () {
     return {
       appURL: process.env.VUE_APP_MAIN_APP_URL,
+      setAppTitle(title) {
+        window.document.title = `${
+          title ? title + ' :: ' : ''
+        }Qshop.ng Fullstack Test App`
+      },
     }
   },
 })

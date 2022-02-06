@@ -205,6 +205,7 @@ export default {
     try {
       const response = await axios.get(`/category`);
       this.categories = response.data.data;
+      this.setAppTitle("Add Product");
     } catch (err) {
       this.errors.push(err);
     }

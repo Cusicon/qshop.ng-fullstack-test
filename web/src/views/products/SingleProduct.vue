@@ -151,6 +151,7 @@ export default {
     try {
       const response = await axios.get(`/products/${this.$route.params.slug}`);
       this.product = response.data.data;
+      this.setAppTitle(this.product.title.toNameCase());
     } catch (err) {
       this.errors.push(err);
     }

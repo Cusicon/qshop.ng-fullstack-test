@@ -52,7 +52,7 @@
                   </router-link>
                 </td>
 
-                <td class="product-date-updated" data-title="Date-Added">
+                <td class="product-date-updated" data-title="Date-Updated">
                   <span class="woocommerce-Price-amount amount">
                     {{ new Date(modification.createdAt).toDateString() }}
                   </span>

@@ -177,6 +177,7 @@ export default {
       const response = await axios.get(`/products/${this.$route.params.slug}`);
       this.product = response.data.data;
       this.init();
+      this.setAppTitle(`Edit - ${this.product.title.toNameCase()}`);
     } catch (err) {
       this.errors.push(err);
     }
