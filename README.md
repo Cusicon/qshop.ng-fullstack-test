@@ -52,8 +52,7 @@ npm run serve
 
 ## Enjoy 🎉🥳💪🏾
 
-<br>
-<br>
+I'm pretty sure you'll love what I did.
 
 # Author
 
