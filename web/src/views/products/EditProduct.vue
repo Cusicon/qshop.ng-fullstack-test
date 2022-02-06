@@ -165,7 +165,7 @@ export default {
         await axios.put(`/products/edit/${this.product._id}`, this.form);
         this.$router.push("/products");
       } catch (err) {
-        console.log(err);
+        this.errors.push(err);
       }
     },
     init() {
@@ -181,8 +181,8 @@ export default {
       const response = await axios.get(`/products/${this.$route.params.slug}`);
       this.product = response.data.data;
       this.init();
-    } catch (e) {
-      this.errors.push(e);
+    } catch (err) {
+      this.errors.push(err);
     }
   },
 };

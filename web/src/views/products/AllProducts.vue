@@ -184,8 +184,8 @@ export default {
       }
 
       this.products = all_products;
-    } catch (e) {
-      this.errors.push(e);
+    } catch (err) {
+      this.errors.push(err);
     }
   },
 };

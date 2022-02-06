@@ -148,10 +148,10 @@ export default {
   // Fetches posts when the component is created.
   async mounted() {
     try {
-      const response = await axios.get(`products/${this.$route.params.slug}`);
+      const response = await axios.get(`/products/${this.$route.params.slug}`);
       this.product = response.data.data;
-    } catch (e) {
-      this.errors.push(e);
+    } catch (err) {
+      this.errors.push(err);
     }
   },
 };

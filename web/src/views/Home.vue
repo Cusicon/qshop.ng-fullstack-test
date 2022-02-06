@@ -68,7 +68,7 @@ export default {
   // Fetches posts when the component is created.
   async mounted() {
     try {
-      const response = await axios.get(`products`);
+      const response = await axios.get(`/products`);
       let all_products = [];
 
       for (const key in response.data.data) {
@@ -88,8 +88,8 @@ export default {
 
       new_all_products = new_all_products.sort(sortByCategory);
       this.products = new_all_products;
-    } catch (e) {
-      this.errors.push(e);
+    } catch (err) {
+      this.errors.push(err);
     }
   },
 };

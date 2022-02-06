@@ -199,7 +199,7 @@ export default {
         this.isSubmitting = false;
       } catch (err) {
         this.isSubmitting = false;
-        console.log(err);
+        this.errors.push(err);
       }
     },
   },
@@ -209,8 +209,8 @@ export default {
     try {
       const response = await axios.get(`/category`);
       this.categories = response.data.data;
-    } catch (e) {
-      this.errors.push(e);
+    } catch (err) {
+      this.errors.push(err);
     }
   },
 };

@@ -118,6 +118,7 @@ export default {
     return {
       there_is_history: false,
       modification_array: [],
+      errors: [],
     };
   },
   async mounted() {
@@ -129,7 +130,7 @@ export default {
       this.modification_array = response.data.data;
       this.there_is_history = this.modification_array[0] ? true : false;
     } catch (err) {
-      console.log(err);
+      this.errors.push(err);
     }
   },
 };
