@@ -17,6 +17,14 @@ To import database follow this steps.
 - And now to import database enter the following
 
 ```bash
+cd server
+npm run import-db
+
+```
+
+If that doesn't work, then you can do this
+
+```bash
 cd db
 mongorestore -d testdb testdb
 
