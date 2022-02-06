@@ -24,7 +24,6 @@
           <div class="sb_title">
             <router-link :to="`/products/${product.slug}`">
               {{ product.title }}
-              ({{ product.category }})
             </router-link>
           </div>
 

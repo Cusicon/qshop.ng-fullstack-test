@@ -5,10 +5,22 @@ import AddProduct from '@/views/products/AddProduct.vue'
 import AllProducts from '@/views/products/AllProducts.vue'
 import EditProduct from '@/views/products/EditProduct.vue'
 import SingleProduct from '@/views/products/SingleProduct.vue'
+import Login from '@/views/auth/Login.vue'
+import SignUp from '@/views/auth/SignUp.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+  },
+  {
+    path: '/signup',
+    name: 'SignUp',
+    component: SignUp,
+  },
   {
     path: '/',
     name: 'Home',

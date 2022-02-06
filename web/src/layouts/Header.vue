@@ -79,6 +79,18 @@
 
         <div class="header_search">
           <form>
+            <span v-if="!isAuthenticated">
+              <router-link to="/signup" class="btn" style="margin: auto 5px">
+                Sign Up
+              </router-link>
+              <router-link
+                to="/login"
+                class="btn product-action-view"
+                style="margin: auto 5px"
+              >
+                Login
+              </router-link>
+            </span>
             <input type="text" placeholder="Search" name="s" id="s" />
           </form>
         </div>
