@@ -69,8 +69,9 @@ router.put(
         price: m_price,
         qty: m_qty,
       } = modified_props
+      const is_modified = Object.entries(modified_props).length > 0
 
-      let what_happened = modified_props[0]
+      let what_happened = is_modified
         ? happened_msg(m_price, m_qty, m_description)
         : 'Nothing was modified!'
 
@@ -84,6 +85,7 @@ router.put(
         JSON.stringify(newProductHistory).toLowerCase()
       )
 
+      if (!is_modified) throw new Error('Sorry, product was not modified!')
       await ProductHistory.create({ ...newProductHistory })
 
       return res.json({
