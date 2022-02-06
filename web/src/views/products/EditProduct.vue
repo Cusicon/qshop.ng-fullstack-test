@@ -129,7 +129,7 @@
 
         <div class="clear"></div>
 
-        <ProductModification :productId="product._id"/>
+        <ProductModification :productId="product._id" :product="product" />
       </div>
     </section>
     <div class="clear"></div>
@@ -145,7 +145,7 @@ import ProductModification from "@/components/ProductModification.vue";
 export default {
   name: "AddProduct",
   components: {
-    ProductModification
+    ProductModification,
   },
   data() {
     return {

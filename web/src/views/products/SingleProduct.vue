@@ -47,13 +47,8 @@
                     </p>
                   </div>
 
-                  <form
-                    class="cart"
-                    action="https://dessign.net/shopper-woocommerce-theme/product/design-and-relax/"
-                    method="post"
-                    enctype="multipart/form-data"
-                  >
-                    <div class="quantity">
+                  <div class="cart">
+                    <div class="quantity" style="display: inline-block">
                       <label
                         class="screen-reader-text"
                         for="quantity_61fd64ff753f2"
@@ -61,7 +56,7 @@
                       >
                       <input
                         type="number"
-                        id="quantity_61fd64ff753f2"
+                        id="quantity"
                         class="input-text qty text"
                         step="1"
                         min="1"
@@ -76,11 +71,16 @@
 
                     <button
                       class="single_add_to_cart_button button alt"
-                      style="background-color: #000000; line-height: 0.5"
+                      style="
+                        display: inline-block;
+                        margin-left: 5px;
+                        background-color: #000000;
+                        line-height: 0.5;
+                      "
                     >
                       Add to cart
                     </button>
-                  </form>
+                  </div>
 
                   <div class="product_meta">
                     <span class="sku_wrapper"

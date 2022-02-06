@@ -7,6 +7,8 @@
           <br />
           <h1>Modification History</h1>
 
+          {{ there_is_history }}
+
           <table
             class="
               shop_table shop_table_responsive
@@ -14,6 +16,7 @@
               woocommerce-cart-form__contents
             "
             cellspacing="0"
+            v-if="there_is_history"
           >
             <thead>
               <tr>
@@ -21,15 +24,17 @@
                 <th class="product-name">Product</th>
                 <th class="product-date-updated">Date Updated</th>
                 <th class="product-what-was-modified">What was modified</th>
-                <th class="product-quantity">Balance</th>
               </tr>
             </thead>
             <tbody>
-              <!-- v-FOR here (modificationArray) -->
-              <tr class="woocommerce-cart-form__cart-item cart_item">
+              <tr
+                class="woocommerce-cart-form__cart-item cart_item"
+                v-for="modification of modification_array"
+                :key="modification._id"
+              >
                 <td class="product-thumbnail">
-                  <a href="/single-product"
-                    ><img
+                  <router-link :to="`/products/${product.slug}`">
+                    <img
                       width="50"
                       height="50"
                       src="https://dessign.net/shopper-woocommerce-theme/wp-content/uploads/2015/03/modern-chair-black1-300x300.jpg"
@@ -40,16 +45,18 @@
                       alt=""
                       loading="lazy"
                     />
-                  </a>
+                  </router-link>
                 </td>
 
                 <td class="product-name" data-title="Product">
-                  <a href="/single-product"> Design and Relax </a>
+                  <router-link :to="`/products/${product.slug}`">
+                    {{ product.title }}
+                  </router-link>
                 </td>
 
                 <td class="product-date-updated" data-title="Date-Added">
                   <span class="woocommerce-Price-amount amount">
-                    2022-02-03
+                    {{ new Date(modification.createdAt).toDateString() }}
                   </span>
                 </td>
 
@@ -58,31 +65,34 @@
                   data-title="What Was Modified"
                 >
                   <span class="woocommerce-Price-amount amount">
-                    modified price: 1450.99, quantity: 180, and description:
-                    this is an updated product two!
+                    {{ modification.what_happened }}
                   </span>
                 </td>
+              </tr>
+            </tbody>
+          </table>
 
-                <td class="product-quantity" data-title="Quantity">
-                  <div class="quantity">
-                    <label class="screen-reader-text" for="product-quantity"
-                      >Quantity</label
-                    >
-                    <input
-                      type="number"
-                      id="product-quantity"
-                      class="input-text qty text"
-                      step="1"
-                      min="1"
-                      max=""
-                      name="product-quantity"
-                      value="1"
-                      title="Quantity"
-                      size="4"
-                      inputmode="numeric"
-                      disabled
-                    />
-                  </div>
+          <table
+            class="
+              shop_table shop_table_responsive
+              cart
+              woocommerce-cart-form__contents
+            "
+            cellspacing="0"
+            v-else
+          >
+            <thead>
+              <tr>
+                <th class="product-thumbnail">Image</th>
+                <th class="product-name">Product</th>
+                <th class="product-date-updated">Date Updated</th>
+                <th class="product-what-was-modified">What was modified</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="woocommerce-cart-form__cart-item cart_item">
+                <td colspan="4">
+                  <center style="padding: 10px">No modifications yet!</center>
                 </td>
               </tr>
             </tbody>
@@ -96,21 +106,28 @@
 </template>
 
 <script>
+import { AXIOS as axios } from "@/utils/http-common";
+
 export default {
   name: "ProductModification",
   props: {
+    product: Object,
     productId: String,
   },
   data() {
     return {
-      modificationArray: [],
+      there_is_history: false,
+      modification_array: [],
     };
   },
   async mounted() {
     try {
       // Create Route and Consume
-      const response = await axios.get(`/products/history/${this.product._id}`);
-      this.modificationArray = response.data.data;
+      const response = await axios.get(
+        `/products/edit/${this.$props.productId}/history`
+      );
+      this.modification_array = response.data.data;
+      this.there_is_history = this.modification_array[0] ? true : false;
     } catch (err) {
       console.log(err);
     }
