@@ -34,7 +34,6 @@
                 <span class="real-app-Price-amount amount">
                   <span class="real-app-Price-currencySymbol">₦</span>
                   {{ product.price }}
-                  (qty: {{ product.qty }})
                 </span>
               </span>
             </div>
