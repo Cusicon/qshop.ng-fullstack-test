@@ -58,7 +58,7 @@ router.post(
     try {
       const { category, title } = req.body
       let found_cat = await Category.findOne({ title: category }).lean('_id')
-      let slug = title.replace(' ', '-')
+      let slug = title.split(' ').join('-')
       if (!found_cat) throw Error('please, select a valid category!')
 
       const newProduct = {

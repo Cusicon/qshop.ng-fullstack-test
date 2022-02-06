@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 
     for (const prod of products) {
       let cat = await Category.findById(prod.category).lean('title').exec()
-      prod.category = cat.title.replace('-', ' ')
+      prod.category = cat.title.split('-').join(' ')
       u_products.push(prod)
     }
 

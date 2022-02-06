@@ -32,7 +32,7 @@ router.post(
     // Create Category
     try {
       let { title } = req.body
-      title = title.replace(' ', '-')
+      title = title.split(' ').join('-')
 
       const newCategory = { ...req.body, user_id: req.user._id, title }
       await Category.create({ ...newCategory })

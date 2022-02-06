@@ -22,7 +22,7 @@ router.get('/:slug', async (req, res) => {
       })
 
     let cat = await Category.findById(product.category).lean('title').exec()
-    product.category = cat.title.replace('-', ' ')
+    product.category = cat.title.split('-').join(' ')
 
     return res.json({
       ...global.jsonBag,
