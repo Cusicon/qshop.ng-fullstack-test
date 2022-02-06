@@ -15,16 +15,13 @@
                     images
                   "
                   data-columns="4"
-                  style="opacity: 0; transition: opacity 0.25s ease-in-out"
                 >
                   <div class="woocommerce-product-gallery__image">
-                    <a
-                      href="https://dessign.net/shopper-woocommerce-theme/wp-content/uploads/2015/03/modern-chair-black1.jpg"
-                    >
+                    <a :href="`${appURL}${product.images[0]}`">
                       <img
                         width="566"
                         height="569"
-                        src="https://dessign.net/shopper-woocommerce-theme/wp-content/uploads/2015/03/modern-chair-black1.jpg"
+                        :src="`${appURL}${product.images[0]}`"
                         alt=""
                         loading="lazy"
                       />

@@ -10,7 +10,7 @@
           <div>
             <router-link :to="`/products/${product.slug}`">
               <img
-                src="https://dessign.net/shopper-woocommerce-theme/wp-content/uploads/2015/03/modern-chair-black1-360x360.jpg"
+                :src="`${appURL}${product.images[0]}`"
                 class="
                   attachment-home-small-box
                   size-home-small-box

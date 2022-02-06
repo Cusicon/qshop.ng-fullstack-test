@@ -95,7 +95,7 @@
                   <img
                     width="100"
                     height="100"
-                    :src="product.images[0]"
+                    :src="`${appURL}${product.images[0]}`"
                     class="
                       attachment-woocommerce_thumbnail
                       size-woocommerce_thumbnail

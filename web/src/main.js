@@ -6,6 +6,14 @@ import './assets/css/mobile.css'
 
 Vue.config.productionTip = false
 
+Vue.mixin({
+  data: function () {
+    return {
+      appURL: process.env.VUE_APP_MAIN_APP_URL,
+    }
+  },
+})
+
 new Vue({
   router,
   render: (h) => h(App),

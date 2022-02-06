@@ -37,7 +37,7 @@
                     <img
                       width="50"
                       height="50"
-                      src="https://dessign.net/shopper-woocommerce-theme/wp-content/uploads/2015/03/modern-chair-black1-300x300.jpg"
+                      :src="`${appURL}${product.images[0]}`"
                       class="
                         attachment-woocommerce_thumbnail
                         size-woocommerce_thumbnail
