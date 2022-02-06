@@ -9,13 +9,14 @@
               <br />
               <h1>
                 All Products
-                <a
-                  href="/add-product"
+                ({{ products.length }})
+                <router-link
+                  to="/add-product"
                   class="pull-right btn product-action-view"
                   style="color: #ffffff"
                 >
                   <small class="fa fa-plus"></small> Add Product
-                </a>
+                </router-link>
               </h1>
 
               <table
@@ -161,7 +162,16 @@ export default {
   async mounted() {
     try {
       const response = await axios.get(`products`);
-      this.products = response.data.data;
+      let all_products = [];
+
+      for (const key in response.data.data) {
+        if (Object.hasOwnProperty.call(response.data.data, key)) {
+          const data = response.data.data[key];
+          all_products.push(data);
+        }
+      }
+
+      this.products = all_products;
     } catch (e) {
       this.errors.push(e);
     }

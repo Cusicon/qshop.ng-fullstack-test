@@ -86,16 +86,8 @@
 
                     <span class="posted_in">
                       Categories: {{ product.category }},
-                      <a
-                        href="https://dessign.net/shopper-woocommerce-theme/product-category/all-product/"
-                        rel="tag"
-                        >All Product</a
-                      >,
-                      <a
-                        href="https://dessign.net/shopper-woocommerce-theme/product-category/new-arrivals/"
-                        rel="tag"
-                        >New Arrivals</a
-                      ></span
+                      <a href="#" rel="tag">All Product</a>,
+                      <a href="#" rel="tag">New Arrivals</a></span
                     >
                   </div>
                 </div>
