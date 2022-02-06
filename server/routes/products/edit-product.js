@@ -69,9 +69,10 @@ router.put(
         price: m_price,
         qty: m_qty,
       } = modified_props
-      let what_happened = `Modified ${m_price ? `price: ${m_price} ` : ''}${
-        m_qty ? `quantity: ${m_qty} ` : ''
-      }${m_description ? `description: ${m_description}` : ''}`
+
+      let what_happened = modified_props[0]
+        ? happened_msg(m_price, m_qty, m_description)
+        : 'Nothing was modified!'
 
       let newProductHistory = {
         product_id: prod_id,
@@ -101,6 +102,12 @@ router.put(
         },
         data: null,
       })
+    }
+
+    function happened_msg(m_price, m_qty, m_description) {
+      return `Modified ${m_price ? `price: ${m_price} ` : ''}${
+        m_qty ? `quantity: ${m_qty} ` : ''
+      }${m_description ? `description: ${m_description}` : ''}`
     }
   }
 )
