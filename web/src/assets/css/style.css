@@ -832,17 +832,17 @@ h3.footer_title {
   margin: 0 6px;
 }
 
-.product-action-view {
+.product-action-view, .product-action-view * {
   background-color: #000 !important;
   color: #ffffff !important;
 }
 
-.product-action-edit {
+.product-action-edit, .product-action-edit * {
   background-color: #2391eb !important;
   color: #ffffff !important;
 }
 
-.product-action-delete {
+.product-action-delete, .product-action-delete * {
   background-color: #e65454 !important;
   color: #ffffff !important;
 }

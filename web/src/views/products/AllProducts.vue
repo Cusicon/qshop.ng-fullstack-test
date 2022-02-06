@@ -12,7 +12,7 @@
                 <router-link
                   to="/add-product"
                   class="pull-right btn product-action-view"
-                  style="color: #ffffff"
+                  style="margin: auto 5px"
                 >
                   <small class="fa fa-plus"></small> Add Product
                 </router-link>
@@ -128,6 +128,51 @@
                   </tr>
                 </tbody>
               </table>
+
+              <br /><br />
+
+              <h1>
+                All Categories ({{ categories.length }})
+                <a
+                  href="javascript:void(0);"
+                  class="pull-right btn product-action-edit"
+                  @click="addCategory()"
+                >
+                  <small class="fa fa-plus"></small> Add Category
+                </a>
+              </h1>
+
+              <table
+                class="
+                  shop_table shop_table_responsive
+                  cart
+                  woocommerce-cart-form__contents
+                "
+                cellspacing="0"
+              >
+                <thead>
+                  <tr>
+                    <th class="product-name">Title</th>
+                    <th class="product-date-updated">Date Added</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="woocommerce-cart-form__cart-item cart_item"
+                    v-for="category of categories"
+                    :key="category._id"
+                  >
+                    <td class="product-name" data-title="Category">
+                      {{ category.title.replace("-", " ").toNameCase() }}
+                    </td>
+                    <td class="product-date-added" data-title="Date-Added">
+                      <span class="woocommerce-Price-amount amount">
+                        {{ new Date(category.createdAt).toDateString() }}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
@@ -150,6 +195,7 @@ export default {
   data() {
     return {
       products: [],
+      categories: [],
       errors: [],
     };
   },
@@ -168,22 +214,46 @@ export default {
         this.errors.push(err);
       }
     },
+    async addCategory() {
+      try {
+        const new_category = prompt(`Add a Category`);
+        if (new_category) {
+          await axios.post(`/category/add`, { title: new_category });
+          this.$router.go();
+        }
+      } catch (err) {
+        this.errors.push(err);
+      }
+    },
   },
 
   // Fetches posts when the component is created.
   async mounted() {
     try {
-      const response = await axios.get(`/products`);
+      const prod_response = await axios.get(`/products`);
+      const cat_response = await axios.get(`/category`);
       let all_products = [];
+      let all_categories = [];
 
-      for (const key in response.data.data) {
-        if (Object.hasOwnProperty.call(response.data.data, key)) {
-          const data = response.data.data[key];
+      // products
+      for (const key in prod_response.data.data) {
+        if (Object.hasOwnProperty.call(prod_response.data.data, key)) {
+          const data = prod_response.data.data[key];
           all_products.push(data);
         }
       }
 
+      // categories
+      for (const key in cat_response.data.data) {
+        if (Object.hasOwnProperty.call(cat_response.data.data, key)) {
+          const data = cat_response.data.data[key];
+          all_categories.push(data);
+        }
+      }
+
       this.products = all_products;
+      this.categories = all_categories;
+      this.setAppTitle("All Products");
     } catch (err) {
       this.errors.push(err);
     }
