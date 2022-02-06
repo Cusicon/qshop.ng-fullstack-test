@@ -5,7 +5,7 @@
         <div class="woocommerce">
           <div class="woocommerce-notices-wrapper"></div>
           <br />
-          <h1>Modification History</h1>
+          <h1>Modification History ({{ modification_array.length }})</h1>
 
           <table
             class="
@@ -125,7 +125,15 @@ export default {
       const response = await axios.get(
         `/products/edit/${this.$props.productId}/history`
       );
-      this.modification_array = response.data.data;
+
+      // modification array
+      for (const key in response.data.data) {
+        if (Object.hasOwnProperty.call(response.data.data, key)) {
+          const data = response.data.data[key];
+          this.modification_array.push(data);
+        }
+      }
+
       this.there_is_history = this.modification_array[0] ? true : false;
     } catch (err) {
       this.errors.push(err);
