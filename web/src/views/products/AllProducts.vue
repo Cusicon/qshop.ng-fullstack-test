@@ -8,8 +8,7 @@
               <div class="woocommerce-notices-wrapper"></div>
               <br />
               <h1>
-                All Products
-                ({{ products.length }})
+                All Products ({{ products.length }})
                 <router-link
                   to="/add-product"
                   class="pull-right btn product-action-view"
@@ -43,32 +42,29 @@
                     v-for="product of products"
                     :key="product.slug"
                   >
-                    <td class="product-remove">
+                    <td class="product-actions">
                       <router-link
                         :to="`/products/${product.slug}`"
                         class="badge product-action-view"
+                        style="margin: auto 2px;"
                         aria-label="View this item"
-                        data-product_id="85"
-                        data-product_sku="Relax599"
                       >
                         <small class="fa fa-eye"></small> view
                       </router-link>
                       <router-link
                         :to="`/products/${product.slug}/edit`"
                         class="badge product-action-edit"
+                        style="margin: auto 2px;"
                         aria-label="Edit this
                         item"
-                        data-product_id="85"
-                        data-product_sku="Relax599"
                       >
                         <small class="fa fa-edit"></small> edit
                       </router-link>
                       <a
-                        href="/delete-product"
+                        @click="deleteProduct(product)"
                         class="badge product-action-delete"
+                        style="margin: auto 2px;"
                         aria-label="Remove this item"
-                        data-product_id="85"
-                        data-product_sku="Relax599"
                       >
                         <small class="fa fa-times"></small> delete
                       </a>
@@ -158,10 +154,26 @@ export default {
     };
   },
 
+  methods: {
+    async deleteProduct({ _id, title }) {
+      try {
+        const must_delete = confirm(
+          `You are deleting "${title.toUpperCase()}". Continue?`
+        );
+        if (must_delete) {
+          await axios.delete(`/products/delete/${_id}`);
+          this.$router.go();
+        }
+      } catch (err) {
+        this.errors.push(err);
+      }
+    },
+  },
+
   // Fetches posts when the component is created.
   async mounted() {
     try {
-      const response = await axios.get(`products`);
+      const response = await axios.get(`/products`);
       let all_products = [];
 
       for (const key in response.data.data) {
