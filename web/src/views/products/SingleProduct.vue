@@ -30,11 +30,13 @@
                 </div>
 
                 <div class="summary entry-summary">
-                  <h1 class="product_title entry-title">{{ product.title }}</h1>
+                  <h1 class="product_title entry-title">
+                    <b>{{ product.title.toNameCase() }}</b>
+                  </h1>
                   <p class="price">
                     <span class="woocommerce-Price-amount amount"
                       ><span class="woocommerce-Price-currencySymbol"
-                        >&#36;</span
+                        >₦</span
                       >{{ product.price }}</span
                     >
                   </p>
