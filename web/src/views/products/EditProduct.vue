@@ -85,6 +85,7 @@
                     required
                     min="1"
                     v-model="form.qty"
+                    @change="neverBeLessThanProductQuantity"
                   />
                 </p>
 
@@ -168,6 +169,12 @@ export default {
       this.form.description = this.product.description.toSentenceCase();
       this.form.price = this.product.price;
       this.form.qty = this.product.qty;
+    },
+    neverBeLessThanProductQuantity() {
+      if (this.form.qty < this.product.qty) {
+        this.form.qty = this.product.qty;
+        alert(`Sorry, quantity can't be less than "${this.product.qty}"`);
+      }
     },
   },
 
