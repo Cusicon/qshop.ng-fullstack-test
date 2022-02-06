@@ -24,6 +24,7 @@
           <div class="sb_title">
             <router-link :to="`/products/${product.slug}`">
               {{ product.title }}
+              ({{ product.category }})
             </router-link>
           </div>
 
@@ -41,7 +42,7 @@
         </div>
 
         <!-- NEW LINE -->
-        <div class="product clear"></div>
+        <!-- <div class="product clear"></div> -->
 
         <!-- LAST BOX for the Home containers -->
         <div class="product product_last"></div>
@@ -83,11 +84,13 @@ export default {
         (prod) => new Date(prod.exp_date).getTime() > new Date().getTime()
       );
 
-      const sortByCategory = function (a, b) {
-        return a.category.localeCompare(b.category);
+      const sortBy = {
+        Qty: (a, b) => a.qty - b.qty,
+        Category: (a, b) => a.category.localeCompare(b.category),
       };
 
-      new_all_products = new_all_products.sort(sortByCategory);
+      new_all_products.sort(sortBy.Qty).sort(sortBy.Category);
+
       this.products = new_all_products;
       this.setAppTitle();
     } catch (err) {
