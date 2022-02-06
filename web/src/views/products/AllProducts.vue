@@ -33,7 +33,7 @@
                     <th class="product-name">Product</th>
                     <th class="product-date-added">Date Added</th>
                     <th class="product-expiry-date">Expiry Date</th>
-                    <th class="product-quantity">Balance</th>
+                    <th class="product-quantity">Balance (Qty)</th>
                   </tr>
                 </thead>
                 <tbody>
