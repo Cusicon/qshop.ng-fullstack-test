@@ -163,7 +163,7 @@
                     :key="category._id"
                   >
                     <td class="product-name" data-title="Category">
-                      {{ category.title.replace("-", " ").toNameCase() }}
+                      {{ category.title.split("-").join(" ").toNameCase() }}
                     </td>
                     <td class="product-date-added" data-title="Date-Added">
                       <span class="woocommerce-Price-amount amount">

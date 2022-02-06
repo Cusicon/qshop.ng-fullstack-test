@@ -73,7 +73,7 @@
                       v-for="cat of categories"
                       :key="cat._id"
                     >
-                      {{ cat.title.replace("-", " ").toNameCase() }}
+                      {{ cat.title.split("-").join(" ").toNameCase() }}
                     </option>
                   </select>
                 </p>
