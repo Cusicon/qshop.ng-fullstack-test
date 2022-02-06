@@ -17,7 +17,7 @@
                   data-columns="4"
                 >
                   <div class="woocommerce-product-gallery__image">
-                    <a :href="`${appURL}${product.images[0]}`">
+                    <a :href="`${appURL}${product.images[0]}`" target="_blank">
                       <img
                         width="566"
                         height="569"
@@ -35,14 +35,13 @@
                   </h1>
                   <p class="price">
                     <span class="woocommerce-Price-amount amount"
-                      ><span class="woocommerce-Price-currencySymbol"
-                        >₦</span
+                      ><span class="woocommerce-Price-currencySymbol">₦</span
                       >{{ product.price }}</span
                     >
                   </p>
                   <div class="woocommerce-product-details__short-description">
                     <p>
-                      {{ product.description }}
+                      {{ product.description.toSentenceCase() }}
                     </p>
                   </div>
 
@@ -83,11 +82,11 @@
 
                   <div class="product_meta">
                     <span class="sku_wrapper"
-                      >SKU: <span class="sku">Relax599</span></span
+                      >SKU: <span class="sku">Relax599,</span></span
                     >
 
                     <span class="posted_in">
-                      Categories: {{ product.category }},
+                      Categories: {{ product.category.toNameCase() }},
                       <a href="#" rel="tag">All Product</a>,
                       <a href="#" rel="tag">New Arrivals</a></span
                     >
@@ -119,7 +118,7 @@
                     <h2>Description</h2>
 
                     <p>
-                      {{ product.description }}
+                      {{ product.description.toSentenceCase() }}
                     </p>
                   </div>
                 </div>

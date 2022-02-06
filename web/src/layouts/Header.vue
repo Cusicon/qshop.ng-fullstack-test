@@ -78,7 +78,7 @@
         </div>
 
         <div class="header_search">
-          <form role="search" method="get" id="searchform" action="">
+          <form>
             <input type="text" placeholder="Search" name="s" id="s" />
           </form>
         </div>

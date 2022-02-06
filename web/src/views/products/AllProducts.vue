@@ -46,7 +46,7 @@
                       <router-link
                         :to="`/products/${product.slug}`"
                         class="badge product-action-view"
-                        style="margin: auto 2px;"
+                        style="margin: auto 2px"
                         aria-label="View this item"
                       >
                         <small class="fa fa-eye"></small> view
@@ -54,7 +54,7 @@
                       <router-link
                         :to="`/products/${product.slug}/edit`"
                         class="badge product-action-edit"
-                        style="margin: auto 2px;"
+                        style="margin: auto 2px"
                         aria-label="Edit this
                         item"
                       >
@@ -63,7 +63,7 @@
                       <a
                         @click="deleteProduct(product)"
                         class="badge product-action-delete"
-                        style="margin: auto 2px;"
+                        style="margin: auto 2px"
                         aria-label="Remove this item"
                       >
                         <small class="fa fa-times"></small> delete
@@ -88,7 +88,7 @@
 
                     <td class="product-name" data-title="Product">
                       <router-link :to="`/products/${product.slug}`">
-                        {{ product.title }}
+                        {{ product.title.toNameCase() }}
                       </router-link>
                     </td>
 

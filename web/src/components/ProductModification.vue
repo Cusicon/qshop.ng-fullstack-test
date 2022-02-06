@@ -7,8 +7,6 @@
           <br />
           <h1>Modification History</h1>
 
-          {{ there_is_history }}
-
           <table
             class="
               shop_table shop_table_responsive
@@ -50,7 +48,7 @@
 
                 <td class="product-name" data-title="Product">
                   <router-link :to="`/products/${product.slug}`">
-                    {{ product.title }}
+                    {{ product.title.toNameCase() }}
                   </router-link>
                 </td>
 
@@ -65,7 +63,7 @@
                   data-title="What Was Modified"
                 >
                   <span class="woocommerce-Price-amount amount">
-                    {{ modification.what_happened }}
+                    {{ modification.what_happened.toSentenceCase() }}
                   </span>
                 </td>
               </tr>

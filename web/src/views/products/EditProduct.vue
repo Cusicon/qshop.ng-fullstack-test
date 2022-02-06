@@ -22,7 +22,7 @@
                     name="product_name"
                     id="product_name"
                     autocomplete="product_name"
-                    :value="product.title"
+                    :value="product.title.toNameCase()"
                     disabled
                     required
                   />
@@ -68,7 +68,7 @@
                     disabled
                     required
                   >
-                    <option>{{ product.category }}</option>
+                    <option>{{ product.category.toNameCase() }}</option>
                   </select>
                 </p>
 
@@ -109,11 +109,7 @@
                 <p class="form-row">
                   <button
                     type="submit"
-                    class="
-                      woocommerce-button
-                      button
-                      woocommerce-form-login__submit
-                    "
+                    class="button product-action-view"
                     name="login"
                     value="Log in"
                   >
@@ -169,7 +165,7 @@ export default {
       }
     },
     init() {
-      this.form.description = this.product.description;
+      this.form.description = this.product.description.toSentenceCase();
       this.form.price = this.product.price;
       this.form.qty = this.product.qty;
     },

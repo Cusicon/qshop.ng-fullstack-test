@@ -834,15 +834,15 @@ h3.footer_title {
 
 .product-action-view {
   background-color: #000 !important;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .product-action-edit {
   background-color: #2391eb !important;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .product-action-delete {
   background-color: #e65454 !important;
-  color: #ffffff;
+  color: #ffffff !important;
 }

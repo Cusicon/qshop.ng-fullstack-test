@@ -67,13 +67,13 @@
                     required
                     v-model="form.category"
                   >
-                    <option value="">Select a category</option>
+                    <option value="">Select a Category</option>
                     <option
                       :value="cat.title"
                       v-for="cat of categories"
                       :key="cat._id"
                     >
-                      {{ cat.title.replace("-", " ") }}
+                      {{ cat.title.replace("-", " ").toNameCase() }}
                     </option>
                   </select>
                 </p>
@@ -130,11 +130,7 @@
                   <button
                     :disabled="isSubmitting"
                     type="submit"
-                    class="
-                      woocommerce-button
-                      button
-                      woocommerce-form-login__submit
-                    "
+                    class="button product-action-view"
                     name="login"
                     value="Log in"
                   >
