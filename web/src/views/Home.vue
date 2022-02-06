@@ -69,7 +69,20 @@ export default {
   async mounted() {
     try {
       const response = await axios.get(`products`);
-      this.products = response.data.data;
+      let all_products = [];
+
+      for (const key in response.data.data) {
+        if (Object.hasOwnProperty.call(response.data.data, key)) {
+          const data = response.data.data[key];
+          all_products.push(data);
+        }
+      }
+
+      let new_all_products = all_products.filter(
+        (prod) => new Date(prod.exp_date).getTime() > new Date().getTime()
+      );
+
+      this.products = new_all_products;
     } catch (e) {
       this.errors.push(e);
     }
