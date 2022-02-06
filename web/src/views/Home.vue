@@ -82,6 +82,11 @@ export default {
         (prod) => new Date(prod.exp_date).getTime() > new Date().getTime()
       );
 
+      const sortByCategory = function (a, b) {
+        return a.category.localeCompare(b.category);
+      };
+
+      new_all_products = new_all_products.sort(sortByCategory);
       this.products = new_all_products;
     } catch (e) {
       this.errors.push(e);
