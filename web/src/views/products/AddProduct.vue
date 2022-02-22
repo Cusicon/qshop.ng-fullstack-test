@@ -120,6 +120,7 @@
                     name="product_images"
                     id="product_images"
                     autocomplete="product_images"
+                    multiple
                     required
                     @change="onChange"
                   />
@@ -176,13 +177,14 @@ export default {
   },
   methods: {
     async onChange(event) {
-      this.changedImage = event.target.files[0];
+      this.files = event.target.files;
+      // this.changedImage 
     },
     async submit() {
       try {
         this.isSubmitting = true;
         const formData = new FormData();
-        formData.append("file_url", this.changedImage);
+        formData.append("file_url", this.files);
         const img_response = await axios.post(
           `/upload/media?where=image`,
           formData

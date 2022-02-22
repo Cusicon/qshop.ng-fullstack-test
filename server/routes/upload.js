@@ -10,7 +10,7 @@ router.post(
   '/media',
   jwtVerify,
   onlyRole(['any']),
-  multerUpload.single('file_url'),
+  multerUpload.array('file_url'),
   multerError,
   async (req, res) => {
     try {
@@ -44,23 +44,24 @@ router.post(
         })
 
       // If there is no file
-      if (!req.file)
+      if (!req.files)
         return res.json({
           ...global.jsonBag,
           error: { message: "Sorry, You haven't sent a file!", data: null },
           data: null,
         })
 
-      const filePath = `/${req.file.path.replace('public/', '')}`
-
-      req.file.path = filePath
+      req.files.forEach((file, i) => {
+        const filePath = `/${file.path.replace('public/', '')}`
+        req.files[i].path = filePath
+      })
 
       // Else continue...
       return res.json({
         ...global.jsonBag,
         message: res_message,
         error: null,
-        data: { ...req.file },
+        data: { ...req.files },
       })
     } catch (err) {
       return res.json({
